@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\APIProductController;
+use App\Http\Controllers\APIAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +17,11 @@ use App\Http\Controllers\AuthController;
 */
 
 // Route สำหรับ Registger และ Login โดยไม่ต้องผ่านการ Auth Sanctum
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [APIAuthController::class, 'register']);
+Route::post('login', [APIAuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::resource('products', ProductController::class);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::resource('products', APIProductController::class);
+    Route::post('logout', [APIAuthController::class, 'logout']);
+    Route::post('me', [APIAuthController::class, 'me']);
 });

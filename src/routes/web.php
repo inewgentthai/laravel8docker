@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
+use App\Http\Controllers\FrontHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,4 @@ Route::get('/send-email', function() {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [FrontHomeController::class, 'index'])->name('home');

@@ -1,0 +1,1 @@
+welcome testing mailhog<?php /**PATH /var/www/resources/views/email/test.blade.php ENDPATH**/ ?>

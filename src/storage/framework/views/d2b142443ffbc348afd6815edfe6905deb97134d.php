@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <?php echo $__env->yieldPushContent('styles'); ?>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </head>
 <body>
     <div id="app">
@@ -82,6 +84,7 @@
             <?php echo $__env->yieldContent('content'); ?>
         </main>
     </div>
+    <?php echo $__env->yieldContent('footer_scripts'); ?>
 </body>
 </html>
 <?php /**PATH /var/www/resources/views/layouts/app.blade.php ENDPATH**/ ?>

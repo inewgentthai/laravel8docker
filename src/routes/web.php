@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
 use App\Http\Controllers\FrontHomeController;
+use App\Http\Controllers\FrontDatatablesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,4 @@ Route::get('/send-email', function() {
 Auth::routes();
 
 Route::get('/home', [FrontHomeController::class, 'index'])->name('home');
+Route::get('/datatables', [FrontDatatablesController::class, 'index'])->name('datatables');

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
 use App\Http\Controllers\FrontHomeController;
 use App\Http\Controllers\FrontDatatablesController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ExportExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +42,10 @@ Route::get('/send-email', function() {
 Auth::routes();
 
 Route::get('/home', [FrontHomeController::class, 'index'])->name('home');
-Route::get('/datatables', [FrontDatatablesController::class, 'index'])->name('datatables');
+Route::get('/test', [FrontDatatablesController::class, 'index'])->name('datatables');
+Route::get('/test/export', [FrontDatatablesController::class, 'export'])->name('export');
+
+Route::get('users/export/', [UsersController::class, 'export']);
+
+Route::get('/export_excel', [ExportExcelController::class, 'index']);
+Route::get('/export_excel/excel', [ExportExcelController::class, 'excel'])->name('export_excel.excel');

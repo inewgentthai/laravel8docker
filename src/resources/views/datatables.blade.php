@@ -1,18 +1,47 @@
 @extends('layouts.app')
 
 @push('styles')
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"> --}}
+
+<link rel="stylesheet" type="text/css" href="datatables/DataTables-1.11.3/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="datatables/Buttons-2.0.1/css/buttons.dataTables.min.css"/>
+
+<link rel="stylesheet" type="text/css" href="datatables/Responsive-2.2.9/css/responsive.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="datatables/RowGroup-1.1.4/css/rowGroup.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="datatables/RowReorder-1.2.8/css/rowReorder.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="datatables/Scroller-2.0.5/css/scroller.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="datatables/Select-1.3.3/css/select.dataTables.min.css"/>
 @endpush
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script> --}}
+
+<script type="text/javascript" src="jquery/jquery.min.js"></script>
+<script type="text/javascript" src="datatables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="datatables/JSZip-2.5.0/jszip.min.js"></script>
+
+{{-- <script type="text/javascript" src="datatables/pdfmake-0.1.36/pdfmake.min.js"></script> --}}
+{{-- <script type="text/javascript" src="datatables/pdfmake-0.1.36/vfs_fonts.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+<script type="text/javascript" src="datatables/DataTables-1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="datatables/Buttons-2.0.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="datatables/Buttons-2.0.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="datatables/Buttons-2.0.1/js/buttons.print.min.js"></script>
+
+<script type="text/javascript" src="datatables/Responsive-2.2.9/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="datatables/RowGroup-1.1.4/js/dataTables.rowGroup.min.js"></script>
+<script type="text/javascript" src="datatables/RowReorder-1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script type="text/javascript" src="datatables/Scroller-2.0.5/js/dataTables.scroller.min.js"></script>
+<script type="text/javascript" src="datatables/Select-1.3.3/js/dataTables.select.min.js"></script>
 @endpush
 
 @section('content')
@@ -460,7 +489,7 @@
 @endsection
 
 @section('footer_scripts')
-  <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
 	// DataTable initialisation
 	$('#example').DataTable(
@@ -474,11 +503,19 @@ $(document).ready(function() {
       "dom": 'Bfrtip',
       "buttons": [
         {
+          text: 'Export Excel',
+          action: function (e, dt, node, config) {
+            console.log(dt)
+            var params = dt.ajax.params();
+              window.location.href = '/users/export?ExportToExcel=Yes&dt='+JSON.stringify( params );
+            }
+        },
+        {
             "extend": 'excelHtml5',
             "className": 'btn btn-success datatable-space-button',
-            "text": "Download Excel",
+            "text": "Excel",
             "title" : function(){
-                return "Transaction_";
+                return "Transaction";
                 
             },
             "customize": function(xlsx) {
@@ -486,6 +523,7 @@ $(document).ready(function() {
               console.log('debug-', xlsx)
               // xlsx.type = "blob";
 
+              xlsx.xl.worksheets.setWorkbookPassword = "1234";
               // xlsx.xl.worksheets.Protection.SetPassword = "123";
               // xlsx.xl.worksheets.Protection.IsProtected = true;
 
@@ -535,5 +573,5 @@ $(document).ready(function() {
       ]
 		});
 });
-  </script>
+</script>
 @endsection

@@ -18,8 +18,8 @@ services:
     restart: always
     volumes:
       - ./src:/var/www
-      - /var/www/vendor
-      - /var/www/node_modules
+      # - /var/www/vendor
+      # - /var/www/node_modules
     networks:
       - web_network
 
@@ -67,15 +67,15 @@ services:
     networks:
       - web_network      
 
-  # MailHog (local mail testing)
-  mailhog:
-    image: mailhog/mailhog:v1.0.1
-    container_name: laravel8_mailhog
-    ports:
-      - 8025:8025
-    restart: always
-    networks:
-      - web_network
+  # # MailHog (local mail testing)
+  # mailhog:
+  #   image: mailhog/mailhog:v1.0.1
+  #   container_name: laravel8_mailhog
+  #   ports:
+  #     - 8025:8025
+  #   restart: always
+  #   networks:
+  #     - web_network
 
   # phpMyAdmin (MySQL managment)
   phpmyadmin:
@@ -95,20 +95,20 @@ services:
     networks:
       - web_network
 
-  # React App Service
-  reactapp:
-    build: frontend/
-    image: react-app
-    container_name: react_app
-    volumes:
-      - ./frontend:/usr/app
-      - /usr/app/node_modules
-    ports:
-      # - "3000:3000"
-      - "3000:80"
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    restart: always
-    networks:
-      - web_network
+  # # React App Service
+  # reactapp:
+  #   build: frontend/
+  #   image: react-app
+  #   container_name: react_app
+  #   volumes:
+  #     - ./frontend:/usr/app
+  #     - /usr/app/node_modules
+  #   ports:
+  #     # - "3000:3000"
+  #     - "3000:80"
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #   restart: always
+  #   networks:
+  #     - web_network
       

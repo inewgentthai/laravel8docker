@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Nick\SecureSpreadsheet\Encrypt;
 
 class FrontDatatablesController extends Controller
 {
@@ -24,5 +26,13 @@ class FrontDatatablesController extends Controller
     public function index()
     {
         return view('datatables');
+    }
+
+    public function export()
+    {
+        $test = new Encrypt();
+        return $test->input('users.xlsx')
+            ->password('1234')
+            ->output('users-encrypt.xlsx');
     }
 }
